@@ -203,3 +203,31 @@ encounters_clean <- encounters_clean %>%
       ),
     by = "DepartmentKey"
   )
+
+# ── 9. BUILD TRANSPORTATION-SCREENED PATIENT COHORT ──────────────────────────
+
+# Identify patients who received at least one transportation screening.
+screened_patients <- transport_patient_flag$PatientDurableKey
+
+# Retain all encounters for transportation-screened patients so their
+# complete healthcare journey can be analyzed.
+cohort <- encounters_clean %>%
+  filter(PatientDurableKey %in% screened_patients)
+
+# Review cohort size.
+message("Cohort encounters: ", nrow(cohort))
+message(
+  "Unique patients in cohort: ",
+  n_distinct(cohort$PatientDurableKey)
+)
+
+# Attach patient-level and encounter-level transportation indicators.
+cohort <- cohort %>%
+  left_join(
+    transport_patient_flag,
+    by = "PatientDurableKey"
+  ) %>%
+  left_join(
+    transport_encounter_flag,
+    by = "EncounterKey"
+  )
