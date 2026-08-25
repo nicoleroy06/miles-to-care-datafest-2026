@@ -250,3 +250,47 @@ cohort <- cohort %>%
       ~ replace_na(.x, 0L)
     )
   )
+
+# ── 11. CREATE PATIENT-JOURNEY FEATURES ──────────────────────────────────────
+
+# Define a patient journey as encounters for the same patient
+# associated with the same diagnosis.
+cohort <- cohort %>%
+  arrange(
+    PatientDurableKey,
+    DiagnosisValue,
+    encounter_date
+  )
+
+# Engineer features describing the timing and structure of each journey.
+cohort <- cohort %>%
+  group_by(
+    PatientDurableKey,
+    DiagnosisValue
+  ) %>%
+  mutate(
+    journey_encounter_num = row_number(),
+    journey_total_encounters = n(),
+
+    # Days since the previous encounter in the same journey.
+    days_since_last = as.numeric(
+      encounter_date - lag(encounter_date),
+      units = "days"
+    ),
+
+    # Days elapsed since the first encounter in the journey.
+    journey_day = as.numeric(
+      encounter_date - min(encounter_date),
+      units = "days"
+    ),
+
+    # Indicators for extended gaps between encounters.
+    long_gap = as.integer(
+      !is.na(days_since_last) & days_since_last > 90
+    ),
+
+    very_long_gap = as.integer(
+      !is.na(days_since_last) & days_since_last > 180
+    )
+  ) %>%
+  ungroup()
