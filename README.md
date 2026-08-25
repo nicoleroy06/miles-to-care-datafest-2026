@@ -91,3 +91,17 @@ miles-to-care-datafest-2026/
 ├── datafest-final-presentation.pdf
 ├── README.md
 └── .gitignore
+
+## Reproducing the Analysis
+
+The original ASA DataFest healthcare data is not publicly included in this repository.
+
+To run the data preparation workflow with authorized access to the source files:
+
+1. Clone this repository.
+2. Create a local folder named `data/raw`.
+3. Place the authorized source CSV files in that folder.
+4. Install the required R packages:
+
+```r
+install.packages(c("tidyverse", "data.table", "lubridate"))
