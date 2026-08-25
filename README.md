@@ -53,6 +53,8 @@ This work produced the analysis-ready datasets used by the team to investigate t
 
 ## Key Findings
 
+![Key findings from the transportation burden analysis](images/key-findings.png)
+
 Our analysis found meaningful differences in healthcare utilization among patients who reported transportation barriers:
 
 - Transportation-burdened patients visited the healthcare system approximately every **88 days**, compared with **117 days** for patients without a reported transportation burden.
