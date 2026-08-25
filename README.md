@@ -74,3 +74,15 @@ Our team recommended:
 **1st Place — ASA DataFest Virginia Tech 2026**
 
 Our team, Peak Performance Partners, placed first out of 50 participating teams.
+
+## Repository Structure
+
+```text
+miles-to-care-datafest-2026/
+│
+├── R/
+│   └── cohort_feature_engineering.R
+│
+├── datafest-final-presentation.pdf
+├── README.md
+└── .gitignore
