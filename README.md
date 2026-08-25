@@ -1,6 +1,7 @@
 # Miles to Care: Transportation Barriers & Patient Journeys
 
 ## ASA DataFest 2026 — Virginia Tech
+**[View Final Presentation](datafest-final-presentation.pdf)**
 
 This project analyzes transportation barriers and their relationship to healthcare utilization and patient journeys using data provided by Stormont Vail Health for ASA DataFest 2026.
 
