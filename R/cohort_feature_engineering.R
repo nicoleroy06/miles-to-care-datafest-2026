@@ -294,3 +294,64 @@ cohort <- cohort %>%
     )
   ) %>%
   ungroup()
+
+# ── 12. CREATE PATIENT-LEVEL SUMMARY FEATURES ────────────────────────────────
+
+# Aggregate encounter-level data into one row per patient for
+# downstream statistical analysis.
+patient_summary <- cohort %>%
+  group_by(PatientDurableKey) %>%
+  summarise(
+    total_encounters = n(),
+    total_ed_visits = sum(IsEdVisit, na.rm = TRUE),
+    total_hospital_admits = sum(IsHospitalAdmission, na.rm = TRUE),
+    total_inpatient = sum(IsInpatientAdmission, na.rm = TRUE),
+
+    n_unique_diagnoses = n_distinct(
+      DiagnosisValue,
+      na.rm = TRUE
+    ),
+
+    n_unique_departments = n_distinct(
+      DepartmentKey,
+      na.rm = TRUE
+    ),
+
+    date_first_encounter = min(
+      encounter_date,
+      na.rm = TRUE
+    ),
+
+    date_last_encounter = max(
+      encounter_date,
+      na.rm = TRUE
+    ),
+
+    observation_window_days = as.numeric(
+      max(encounter_date, na.rm = TRUE) -
+        min(encounter_date, na.rm = TRUE),
+      units = "days"
+    ),
+
+    ed_rate = total_ed_visits / total_encounters,
+
+    mean_gap_days = mean(
+      days_since_last,
+      na.rm = TRUE
+    ),
+
+    median_gap_days = median(
+      days_since_last,
+      na.rm = TRUE
+    ),
+
+    n_long_gaps = sum(
+      long_gap,
+      na.rm = TRUE
+    ),
+
+    pct_long_gaps = n_long_gaps /
+      max(total_encounters - 1, 1),
+
+    .groups = "drop"
+  )
