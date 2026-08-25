@@ -32,3 +32,28 @@ social_determinants <- fread(file.path(data_dir, "social_determinants.csv"))
 departments <- fread(file.path(data_dir, "departments.csv"))
 
 message("Source datasets loaded successfully.")
+
+# ── 2. IDENTIFY TRANSPORTATION-BURDENED PATIENTS ─────────────────────────────
+
+# Keep only social determinant responses related to transportation needs.
+transport_responses <- social_determinants %>%
+  filter(Domain == "Transportation Needs") %>%
+  select(
+    PatientDurableKey,
+    EncounterKey,
+    DisplayName,
+    AnswerText
+  )
+
+# Flag a patient as transportation-burdened if they answered "Yes"
+# to a transportation-related screening question at least once.
+transport_patient_flag <- transport_responses %>%
+  group_by(PatientDurableKey) %>%
+  summarise(
+    transport_burdened = as.integer(any(AnswerText == "Yes")),
+    n_transport_screens = n_distinct(EncounterKey),
+    .groups = "drop"
+  )
+
+# Review the number of burdened and non-burdened patients.
+table(transport_patient_flag$transport_burdened)
