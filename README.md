@@ -28,3 +28,28 @@ The analysis explored questions including:
 ### Privacy Note
 
 The original healthcare datasets provided for ASA DataFest are not included in this repository. This repository contains only code, methodology, and approved project materials.
+
+## Key Findings
+
+Our analysis found meaningful differences in healthcare utilization among patients who reported transportation barriers:
+
+- Transportation-burdened patients visited the healthcare system approximately every **88 days**, compared with **117 days** for patients without a reported transportation burden.
+- Transportation-burdened patients used the **emergency department 3.2× more frequently**.
+- In an OLS regression controlling for age, race, and smoking status, transportation-burdened patients had approximately **44 fewer days between visits** (`p = 0.019`).
+- In a logistic regression controlling for demographic and social factors, transportation burden was the strongest predictor of emergency department utilization, with an estimated **odds ratio of 2.88** (`p = 0.00097`).
+
+### Business / Healthcare Implication
+
+The results suggested that transportation barriers may not simply cause patients to miss care. Instead, affected patients may be receiving care more frequently in higher-cost settings such as the emergency department.
+
+Our team recommended:
+
+- Identifying patients with transportation barriers and other social risk factors for enhanced outreach
+- Encouraging more frequent preventative care for high-risk patients
+- Expanding telehealth options when clinically appropriate to reduce transportation-related barriers
+
+### Competition Result
+
+**1st Place — ASA DataFest Virginia Tech 2026**
+
+Our team, Peak Performance Partners, placed first out of 50 participating teams.
