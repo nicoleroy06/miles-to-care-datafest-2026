@@ -159,3 +159,30 @@ encounters_clean <- encounters_clean %>%
       ),
     by = c("PrimaryDiagnosisKey" = "DiagnosisKey")
   )
+
+# ── 7. ATTACH PATIENT DEMOGRAPHICS ───────────────────────────────────────────
+
+# Add demographic and patient-level characteristics to each encounter.
+encounters_clean <- encounters_clean %>%
+  left_join(
+    patients %>%
+      select(
+        DurableKey,
+        OmbRace,
+        OmbEthnicity,
+        SexAssignedAtBirth,
+        PatientBirthYearBin,
+        SmokingStatus,
+        MyChartStatus,
+        MaritalStatus,
+        CensusBlockGroupFipsCode,
+        VitalStatus
+      ),
+    by = c("PatientDurableKey" = "DurableKey")
+  )
+
+# Approximate patient age at the time of each encounter.
+encounters_clean <- encounters_clean %>%
+  mutate(
+    approx_age = year(encounter_date) - as.numeric(PatientBirthYearBin)
+  )
