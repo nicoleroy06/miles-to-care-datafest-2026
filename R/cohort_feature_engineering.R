@@ -68,3 +68,48 @@ transport_encounter_flag <- transport_responses %>%
     transport_burden_at_encounter = as.integer(any(AnswerText == "Yes")),
     .groups = "drop"
   )
+
+# ── 4. CREATE ADDITIONAL SOCIAL DETERMINANT FLAGS ─────────────────────────────
+
+# Define social determinant domains with yes/no responses.
+yes_no_domains <- c(
+  "Food insecurity",
+  "Financial Resource Strain",
+  "Housing Stability",
+  "intimate partner violance",
+  "Utilities"
+)
+
+# Create patient-level indicators for whether each social determinant
+# was ever reported as positive.
+sdoh_yes_no <- social_determinants %>%
+  filter(Domain %in% yes_no_domains) %>%
+  group_by(PatientDurableKey, Domain) %>%
+  summarise(
+    positive = as.integer(any(AnswerText == "Yes")),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = Domain,
+    values_from = positive,
+    values_fill = 0L,
+    names_prefix = "sdoh_"
+  )
+
+# Standardize column names for easier downstream analysis.
+names(sdoh_yes_no) <- names(sdoh_yes_no) %>%
+  str_replace_all(" ", "_") %>%
+  str_to_lower() %>%
+  { ifelse(. == "patientdurablekey", "PatientDurableKey", .) }
+
+# Create a separate stress indicator because stress responses
+# include several positive-response categories.
+stress_flag <- social_determinants %>%
+  filter(Domain == "stress") %>%
+  group_by(PatientDurableKey) %>%
+  summarise(
+    sdoh_stress = as.integer(
+      any(AnswerText %in% c("Yes", "A lot", "Somewhat", "Quite a bit"))
+    ),
+    .groups = "drop"
+  )
