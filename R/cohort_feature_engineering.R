@@ -140,3 +140,22 @@ encounters_clean <- encounters %>%
     AdmissionSource,
     AdmissionType
   )
+
+# ── 6. ATTACH DIAGNOSIS INFORMATION ──────────────────────────────────────────
+
+# Keep one record per diagnosis key to avoid duplicate joins.
+diagnosis_unique <- diagnosis %>%
+  distinct(DiagnosisKey, .keep_all = TRUE)
+
+# Add diagnosis code and high-level diagnosis group to each encounter.
+encounters_clean <- encounters_clean %>%
+  left_join(
+    diagnosis_unique %>%
+      select(
+        DiagnosisKey,
+        DiagnosisValue,
+        GroupName,
+        GroupCode
+      ),
+    by = c("PrimaryDiagnosisKey" = "DiagnosisKey")
+  )
