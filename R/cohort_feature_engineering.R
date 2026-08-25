@@ -231,3 +231,22 @@ cohort <- cohort %>%
     transport_encounter_flag,
     by = "EncounterKey"
   )
+
+# ── 10. ATTACH ADDITIONAL SOCIAL DETERMINANT FLAGS ───────────────────────────
+
+# Add the broader social determinant indicators to the analysis cohort.
+cohort <- cohort %>%
+  left_join(
+    sdoh_yes_no,
+    by = "PatientDurableKey"
+  ) %>%
+  left_join(
+    stress_flag,
+    by = "PatientDurableKey"
+  ) %>%
+  mutate(
+    across(
+      starts_with("sdoh_"),
+      ~ replace_na(.x, 0L)
+    )
+  )
