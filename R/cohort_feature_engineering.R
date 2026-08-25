@@ -20,3 +20,15 @@ library(lubridate)
 # data_dir <- "data/raw"
 
 data_dir <- "data/raw"
+
+# ── 1. LOAD SOURCE DATA ──────────────────────────────────────────────────────
+
+message("Loading source datasets...")
+
+encounters <- fread(file.path(data_dir, "encounters.csv"))
+patients <- fread(file.path(data_dir, "patients.csv"))
+diagnosis <- fread(file.path(data_dir, "diagnosis.csv"))
+social_determinants <- fread(file.path(data_dir, "social_determinants.csv"))
+departments <- fread(file.path(data_dir, "departments.csv"))
+
+message("Source datasets loaded successfully.")
