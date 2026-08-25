@@ -29,6 +29,27 @@ The analysis explored questions including:
 
 The original healthcare datasets provided for ASA DataFest are not included in this repository. This repository contains only code, methodology, and approved project materials.
 
+## My Contribution
+
+I focused primarily on **data ingestion, cohort construction, and feature engineering in R**.
+
+My work included:
+
+- Loading and organizing multiple healthcare datasets, including approximately **7.7 million encounter records**
+- Identifying patients who reported transportation barriers from social determinants of health screening data
+- Building patient- and encounter-level transportation indicators
+- Joining encounter, patient demographic, diagnosis, department, and social determinant data
+- Constructing an analysis cohort containing the complete encounter histories of transportation-screened patients
+- Engineering longitudinal patient-journey features, including:
+  - Days between encounters
+  - Journey duration
+  - Number of encounters
+  - Emergency department utilization
+  - Long gaps in care
+- Creating patient-level summary datasets for downstream statistical modeling and visualization
+
+This work produced the analysis-ready datasets used by the team to investigate the relationship between transportation barriers and healthcare utilization.
+
 ## Key Findings
 
 Our analysis found meaningful differences in healthcare utilization among patients who reported transportation barriers:
