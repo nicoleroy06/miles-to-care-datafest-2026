@@ -186,3 +186,20 @@ encounters_clean <- encounters_clean %>%
   mutate(
     approx_age = year(encounter_date) - as.numeric(PatientBirthYearBin)
   )
+
+# ── 8. ATTACH DEPARTMENT INFORMATION ─────────────────────────────────────────
+
+# Add department characteristics to each encounter.
+encounters_clean <- encounters_clean %>%
+  left_join(
+    departments %>%
+      select(
+        DepartmentKey,
+        DepartmentName,
+        DepartmentSpecialty,
+        DepartmentType,
+        City,
+        County
+      ),
+    by = "DepartmentKey"
+  )
