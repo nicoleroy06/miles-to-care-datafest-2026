@@ -113,3 +113,30 @@ stress_flag <- social_determinants %>%
     ),
     .groups = "drop"
   )
+
+# ── 5. PREPARE ENCOUNTER DATA ────────────────────────────────────────────────
+
+# Parse encounter dates and retain variables needed for patient-journey analysis.
+encounters_clean <- encounters %>%
+  mutate(
+    encounter_date = mdy(Date)
+  ) %>%
+  select(
+    EncounterKey,
+    PatientDurableKey,
+    encounter_date,
+    Type,
+    VisitType,
+    VisitTypeDescription,
+    DepartmentKey,
+    PrimaryDiagnosisKey,
+    AttendingProviderDurableKey,
+    IsEdVisit,
+    IsHospitalAdmission,
+    IsHospitalOutpatientVisit,
+    IsInpatientAdmission,
+    IsObservation,
+    IsOutpatientFaceToFaceVisit,
+    AdmissionSource,
+    AdmissionType
+  )
