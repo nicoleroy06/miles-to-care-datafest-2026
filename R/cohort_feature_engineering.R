@@ -57,3 +57,14 @@ transport_patient_flag <- transport_responses %>%
 
 # Review the number of burdened and non-burdened patients.
 table(transport_patient_flag$transport_burdened)
+
+# ── 3. CREATE ENCOUNTER-LEVEL TRANSPORTATION FLAG ─────────────────────────────
+
+# Create an encounter-level indicator showing whether transportation burden
+# was reported during a specific healthcare encounter.
+transport_encounter_flag <- transport_responses %>%
+  group_by(EncounterKey) %>%
+  summarise(
+    transport_burden_at_encounter = as.integer(any(AnswerText == "Yes")),
+    .groups = "drop"
+  )
