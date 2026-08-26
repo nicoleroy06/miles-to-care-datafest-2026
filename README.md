@@ -23,6 +23,10 @@ The analysis explored questions including:
 ### Tools Used
 
 - R
+- Python
+- Pandas
+- statsmodels
+- NumPy
 - tidyverse
 - data.table
 - lubridate
