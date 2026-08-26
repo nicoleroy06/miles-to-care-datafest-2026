@@ -5,6 +5,8 @@
 
 **[View R Data Preparation & Feature Engineering Code](R/cohort_feature_engineering.R)**
 
+**[View Python Regression Analysis](notebooks/transportation_ed_regression.ipynb)**
+
 This project analyzes transportation barriers and their relationship to healthcare utilization and patient journeys using data provided by Stormont Vail Health for ASA DataFest 2026.
 
 Our team examined a dataset containing approximately 7.7 million healthcare encounters and focused on whether transportation barriers were associated with differences in emergency department use, visit frequency, and continuity of care.
