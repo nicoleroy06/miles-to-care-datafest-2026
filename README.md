@@ -55,6 +55,28 @@ My work included:
 
 This work produced the analysis-ready datasets used by the team to investigate the relationship between transportation barriers and healthcare utilization.
 
+## Statistical Modeling
+
+To examine whether transportation burden was associated with emergency department utilization, the team used **logistic regression in Python with statsmodels**.
+
+The model included:
+
+- Transportation burden
+- Age
+- Race
+- Sex
+- Smoking status
+- Financial strain
+- Intimate partner violence
+- Housing stability
+- Interaction terms between transportation burden and selected patient characteristics
+
+The regression included **22,587 patients**.
+
+Transportation burden showed a statistically significant positive association with emergency department utilization. The model's transportation-burden main effect corresponded to an estimated **odds ratio of 2.88** (`p = 0.00097`).
+
+> Because the model includes interaction terms, the 2.88 odds ratio represents the transportation-burden main effect at the model's reference levels rather than a single universal effect for every patient subgroup.
+
 ## Key Findings
 
 ![Key findings from the transportation burden analysis](images/key-findings.png)
